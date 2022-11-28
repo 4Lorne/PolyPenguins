@@ -33,7 +33,7 @@ public class MainFrame extends JFrame{
         add(dataEntry,"Data Entry");
         add(reports,"Reports");
 
-        setSize(400,400);
+        setSize(800,360);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
