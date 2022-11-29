@@ -4,18 +4,17 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
 import java.util.Objects;
 
 public class DataEntry extends JPanel {
-    JLabel animalObserved = new JLabel("Animal Observed:", JLabel.LEFT);
-    JLabel animal = new JLabel("Animal", JLabel.LEFT);
-    JLabel gender = new JLabel("Gender", JLabel.LEFT);
-    JLabel weight = new JLabel("Weight in Kg", JLabel.LEFT);
-    JLabel bloodPressure = new JLabel("Blood Pressure", JLabel.LEFT);
-    JLabel coordinates = new JLabel("GPS Coordinates: (-)##.####### (-)(## or ###).#######");
+    JLabel animalObserved = new JLabel("Animal Observed:");
+    JLabel animal = new JLabel("Animal");
+    JLabel gender = new JLabel("Gender");
+    JLabel weight = new JLabel("Weight in Kg");
     JLabel dental = new JLabel("Dental Health");
     JLabel spots = new JLabel("Spots");
+    JLabel bloodPressure = new JLabel("Blood Pressure");
+    JLabel coordinates = new JLabel("GPS Coordinates: (-)##.####### (-)(## or ###).#######");
 
     JButton addEntry = new JButton("Add Entry");
     JButton addGPS = new JButton("Add GPS");
@@ -31,8 +30,12 @@ public class DataEntry extends JPanel {
     JTextField addCoords = new JTextField(20);
     JTextField weightEntry = new JTextField(6);
     JTextField bloodPressureEntry = new JTextField(6);
+
     JTextField spotsEntry = new JTextField(6);
     JTextArea coordList = new JTextArea();
+
+    JScrollPane scrollPane = new JScrollPane(coordList);
+
 
     Border border = BorderFactory.createLineBorder(Color.BLACK);
 
@@ -101,9 +104,11 @@ public class DataEntry extends JPanel {
         add(addGPS);
 
         //Text Area
-        coordList.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        coordList.setBounds(350,70,410,125);
-        add(coordList);
+        scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        scrollPane.setBounds(350,70,410,125);
+        coordList.setEditable(false);
+        scrollPane.setAutoscrolls(true);
+        add(scrollPane);
 
         //Button
         viewReports.setBounds(610,215,150,25);
@@ -163,16 +168,82 @@ public class DataEntry extends JPanel {
         return animalCSpecies.getSelectedItem().toString();
     }
 
-    //Regex for validation
-    public boolean checkWeight(){
-        if (weightEntry.getText().matches("\\D+")){ //Anything besides digits
+    //Notifies of successful addition, returns selected animal
+    public String addAnimal(){
+        JOptionPane.showMessageDialog(null,animalChosen()+" saved as a new entry.");
+        return animalCSpecies.getSelectedItem().toString();
+    }
+
+    //Regex for validation of animal chosen
+    public boolean checkInputAnimal(JTextField input){
+        if (input.getText().matches("\\D+")){ //Anything besides digits
             return true;
-        } else if (weightEntry.getText().matches("^$")){ //Empty string
+        } else if (input.getText().matches("^$")){ //Empty string
             return true;
-        } else if (Integer.parseInt(weightEntry.getText()) <= 0 ){
+        } else if (Integer.parseInt(input.getText()) <= 0 ){
             return true;
         } else{
             return false;
         }
+    }
+
+    public void appendGPS(){
+        if (this.checkInputGPS()) {
+            coordList.append(addCoords.getText()+"\n");
+            addCoords.setText("");
+        }
+    }
+
+    //Regex checks for valid input
+    public boolean checkInputGPS(){
+        if (!addCoords.getText().matches("^(-?\\d{2}([.]\\d{7})?) \\s*(-?\\d{2,3}([.]\\d{7})?)$")){
+            gpsError();
+            return false;
+        }else if (addCoords.getText().length() < 18){
+            gpsError();
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public void gpsError(){
+        JOptionPane.showMessageDialog(null,
+                """
+                        Invalid GPS format
+                        Latitude values range from -90 to 90.
+                        Longitudes values range from -180 to 180.
+                        Both values must have 7 digits after the decimal.
+                        Separate latitude and longitude values with a space.
+                        (-)##.####### (-)(## or ###).#######
+                        """);
+    }
+    //Getters
+    public JTextField getAddCoords() {
+        return addCoords;
+    }
+
+    public JTextField getWeightEntry() {
+        return weightEntry;
+    }
+
+    public JTextField getBloodPressureEntry() {
+        return bloodPressureEntry;
+    }
+
+    public JTextField getSpotsEntry() {
+        return spotsEntry;
+    }
+
+    public JLabel getWeight() {
+        return weight;
+    }
+
+    public JLabel getBloodPressure() {
+        return bloodPressure;
+    }
+
+    public JLabel getSpots() {
+        return spots;
     }
 }
