@@ -3,6 +3,9 @@ package View;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.util.Objects;
 
 public class DataEntry extends JPanel {
     JLabel animalObserved = new JLabel("Animal Observed:", JLabel.LEFT);
@@ -11,6 +14,8 @@ public class DataEntry extends JPanel {
     JLabel weight = new JLabel("Weight in Kg", JLabel.LEFT);
     JLabel bloodPressure = new JLabel("Blood Pressure", JLabel.LEFT);
     JLabel coordinates = new JLabel("GPS Coordinates: (-)##.####### (-)(## or ###).#######");
+    JLabel dental = new JLabel("Dental Health");
+    JLabel spots = new JLabel("Spots");
 
     JButton addEntry = new JButton("Add Entry");
     JButton addGPS = new JButton("Add GPS");
@@ -18,12 +23,15 @@ public class DataEntry extends JPanel {
 
     String[] animalArray = {"Penguin", "Sea Lion", "Walrus"};
     String[] animalGender = {"Male", "Female"};
-    JComboBox<String> animalBox = new JComboBox<String>(animalArray);
-    JComboBox<String> animalGBox = new JComboBox<String>(animalGender);
+    String[] dentalHealth = {"Good","Average","Poor"};
+    JComboBox<String> animalCSpecies = new JComboBox<String>(animalArray);
+    JComboBox<String> animalCGender = new JComboBox<String>(animalGender);
+    JComboBox<String> dentalCCombo = new JComboBox<String>(dentalHealth);
 
     JTextField addCoords = new JTextField(20);
     JTextField weightEntry = new JTextField(6);
     JTextField bloodPressureEntry = new JTextField(6);
+    JTextField spotsEntry = new JTextField(6);
     JTextArea coordList = new JTextArea();
 
     Border border = BorderFactory.createLineBorder(Color.BLACK);
@@ -40,14 +48,14 @@ public class DataEntry extends JPanel {
         animal.setBounds(10,50,100,10);
         add(animal);
         //Combo Box
-        animalBox.setBounds(120,45,100,25);
-        add(animalBox);
+        animalCSpecies.setBounds(120,45,100,25);
+        add(animalCSpecies);
         //Label
         gender.setBounds(10,80,100,10);
         add(gender);
         //Combo Box
-        animalGBox.setBounds(120,75,100,25);
-        add(animalGBox);
+        animalCGender.setBounds(120,75,100,25);
+        add(animalCGender);
 
         //Label
         weight.setBounds(10,110,100,15);
@@ -57,13 +65,27 @@ public class DataEntry extends JPanel {
         weightEntry.setBounds(120,105,100,25);
         add(weightEntry);
 
-        //Label
-        bloodPressure.setBounds(10,145,100,10);
+        //Label for the three options
+        bloodPressure.setBounds(10,145,100,15);
         add(bloodPressure);
+
+        spots.setBounds(10,145,100,15);
+        spots.setVisible(false);
+        add(spots);
+
+        dental.setBounds(10,145,100,15);
+        dental.setVisible(false);
+        add(dental);
 
         //Text Field
         bloodPressureEntry.setBounds(120,135,100,25);
         add(bloodPressureEntry);
+
+        spotsEntry.setBounds(120,135,100,25);
+        add(spotsEntry);
+
+        dentalCCombo.setBounds(120,135,100,25);
+        add(dentalCCombo);
 
         //Button
         addEntry.setBounds(60,170,100,25);
@@ -86,5 +108,71 @@ public class DataEntry extends JPanel {
         //Button
         viewReports.setBounds(610,215,150,25);
         add(viewReports);
+    }
+    //Listener for buttons
+    public void setAddEntry(ActionListener actionListener){
+        addEntry.addActionListener(actionListener);
+    }
+    public void setAddGPS(ActionListener actionListener){
+        addGPS.addActionListener(actionListener);
+    }
+    public void setViewReports(ActionListener actionListener){
+        viewReports.addActionListener(actionListener);
+    }
+
+    //Listener for combo boxes
+    public void getSelectedAnimal(ActionListener actionListener){
+        animalCSpecies.addActionListener(actionListener);
+    }
+    public void getSelectedGender(ActionListener actionListener){
+        animalCGender.addActionListener(actionListener);
+    }
+    public void getDentalHealth(ActionListener actionListener){
+        dentalCCombo.addActionListener(actionListener);
+    }
+
+    //Sets visibility based on choice
+    public String animalChosen(){
+        if (Objects.requireNonNull(animalCSpecies.getSelectedItem()).toString().contains("Penguin")){
+                bloodPressure.setVisible(true);
+                spots.setVisible(false);
+                dental.setVisible(false);
+
+                bloodPressureEntry.setVisible(true);
+                spotsEntry.setVisible(false);
+                dentalCCombo.setVisible(false);
+
+        } else if (Objects.requireNonNull(animalCSpecies.getSelectedItem()).toString().contains("Sea Lion")){
+                spots.setVisible(true);
+                bloodPressure.setVisible(false);
+                dental.setVisible(false);
+
+                spotsEntry.setVisible(true);
+                bloodPressureEntry.setVisible(false);
+                dentalCCombo.setVisible(false);
+
+        } else if (Objects.requireNonNull(animalCSpecies.getSelectedItem()).toString().contains("Walrus")){
+                dental.setVisible(true);
+                bloodPressure.setVisible(false);
+                spots.setVisible(false);
+
+                dentalCCombo.setVisible(true);
+                bloodPressureEntry.setVisible(false);
+                spotsEntry.setVisible(false);
+        }
+        return animalCSpecies.getSelectedItem().toString();
+    }
+
+    //Regex for validation
+    public boolean checkWeight(){
+        if (weightEntry.getText().matches("\\D+")){ //Anything besides digits
+            return true;
+        } else if (weightEntry.getText().matches("^$")){ //Empty string
+            return true;
+        } else if (Integer.parseInt(weightEntry.getText()) <= 0 ){
+            return true;
+        } else{
+            return false;
+        }
     }
 }

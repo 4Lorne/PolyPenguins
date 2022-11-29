@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class Reports extends JPanel {
     JLabel reportTitle = new JLabel("Reports");
@@ -33,5 +34,9 @@ public class Reports extends JPanel {
         //Button
         back.setBounds(500,220,175,25);
         add(back);
+    }
+
+    public void setBack(ActionListener actionListener){
+        back.addActionListener(actionListener);
     }
 }

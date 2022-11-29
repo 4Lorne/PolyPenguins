@@ -30,10 +30,19 @@ public class MainFrame extends JFrame{
         new AnimalController(dataEntry,reports);
 
         //Adding views to the frame
-        add(reports,"Reports");
         add(dataEntry,"Data Entry");
+        add(reports,"Reports");
+
+        dataEntry.setViewReports(e -> {
+            cardLayout.show(MainFrame.this.getContentPane(),"Reports");
+        });
+
+        reports.setBack(e -> {
+            cardLayout.show(MainFrame.this.getContentPane(),"Data Entry");
+        });
 
         setSize(800,300);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
