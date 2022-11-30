@@ -30,8 +30,8 @@ public class DataEntry extends JPanel {
     JTextField addCoords = new JTextField(20);
     JTextField weightEntry = new JTextField(6);
     JTextField bloodPressureEntry = new JTextField(6);
-
     JTextField spotsEntry = new JTextField(6);
+
     JTextArea coordList = new JTextArea();
 
     JScrollPane scrollPane = new JScrollPane(coordList);
@@ -171,7 +171,7 @@ public class DataEntry extends JPanel {
     //Notifies of successful addition, returns selected animal
     public String addAnimal(){
         JOptionPane.showMessageDialog(null,animalChosen()+" saved as a new entry.");
-        return animalCSpecies.getSelectedItem().toString();
+        return Objects.requireNonNull(animalCSpecies.getSelectedItem()).toString();
     }
 
     //Regex for validation of animal chosen
@@ -187,6 +187,7 @@ public class DataEntry extends JPanel {
         }
     }
 
+    //Adds coordinates to the coordList
     public void appendGPS(){
         if (this.checkInputGPS()) {
             coordList.append(addCoords.getText()+"\n");
@@ -207,6 +208,7 @@ public class DataEntry extends JPanel {
         }
     }
 
+    //Pops up if there is an error with the GPS coordinates
     public void gpsError(){
         JOptionPane.showMessageDialog(null,
                 """
@@ -218,7 +220,12 @@ public class DataEntry extends JPanel {
                         (-)##.####### (-)(## or ###).#######
                         """);
     }
+
     //Getters
+    public String getGender(){
+        return Objects.requireNonNull(animalCGender.getSelectedItem()).toString();
+    }
+
     public JTextField getAddCoords() {
         return addCoords;
     }
@@ -235,15 +242,23 @@ public class DataEntry extends JPanel {
         return spotsEntry;
     }
 
-    public JLabel getWeight() {
-        return weight;
-    }
-
     public JLabel getBloodPressure() {
         return bloodPressure;
     }
 
     public JLabel getSpots() {
         return spots;
+    }
+
+    public int getWeight() {
+        return Integer.parseInt(weightEntry.getText());
+    }
+
+    public int getBP(){
+        return Integer.parseInt(bloodPressureEntry.getText());
+    }
+
+    public String getCoords(){
+        return addCoords.getText().trim();
     }
 }
