@@ -19,12 +19,8 @@ public class MainFrame extends JFrame{
         DataEntry dataEntry = new DataEntry();
         Reports reports = new Reports();
 
-        //Objects
-
-
         //Setting layout
         setLayout(cardLayout);
-
 
         //Controller
         new AnimalController(dataEntry,reports);

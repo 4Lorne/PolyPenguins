@@ -10,7 +10,7 @@ public class Penguin extends Species{
     public Penguin(){
 
     }
-    public Penguin(String name, String gender, int weight, ArrayList<String> coordinates, double bloodPressure){
+    public Penguin(String name, String gender, int weight, Coordinates coordinates, double bloodPressure){
         super(name,gender,coordinates,weight);
         this.bloodPressure = bloodPressure;
     }
@@ -28,6 +28,11 @@ public class Penguin extends Species{
     //toString
     @Override
     public String toString() {
-        return super.toString() + getBloodPressure();
+        return super.toString() + String.format("""
+                Blood Pressure: %.1f
+                GPS Positions:
+                %s
+                -------------------
+                """,getBloodPressure(),super.getCoordinates());
     }
 }

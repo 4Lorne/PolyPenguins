@@ -7,7 +7,7 @@ public class Walrus extends Species{
     private String dentalHealth;
 
     //Constructor
-    public Walrus(String name, String gender, ArrayList<String> coordinates, int weight, String dentalHealth){
+    public Walrus(String name, String gender, Coordinates coordinates, int weight, String dentalHealth){
         super(name,gender,coordinates,weight);
         this.dentalHealth = dentalHealth;
     }

@@ -13,7 +13,7 @@ public class Reports extends JPanel {
     JButton back = new JButton("Back");
 
     JTextArea coordList = new JTextArea();
-
+    JScrollPane scrollPane = new JScrollPane(coordList);
     Border border = BorderFactory.createLineBorder(Color.BLACK);
 
     public Reports(){
@@ -22,9 +22,11 @@ public class Reports extends JPanel {
         reportTitle.setBounds(10,20,100,15);
         add(reportTitle);
         //Text Area
-        coordList.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        coordList.setBounds(10,40,770,170);
-        add(coordList);
+        scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        scrollPane.setBounds(10,40,770,170);
+        coordList.setEditable(false);
+        scrollPane.setAutoscrolls(false);
+        add(scrollPane);
         //Button
         showNewEntries.setBounds(100,220,175,25);
         add(showNewEntries);
@@ -38,5 +40,16 @@ public class Reports extends JPanel {
 
     public void setBack(ActionListener actionListener){
         back.addActionListener(actionListener);
+    }
+    public void setShowNewEntries(ActionListener actionListener){
+        showNewEntries.addActionListener(actionListener);
+    }
+
+    public void setShowGPSLogs(ActionListener actionListener){
+        showGPSLogs.addActionListener(actionListener);
+    }
+
+    public void printAnimals(String input){
+        coordList.append(input);
     }
 }

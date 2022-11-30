@@ -1,13 +1,12 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public abstract class Species {
     //Variables
     private String name;
     private String gender;
-    private ArrayList<String> coordinates;
+    private Coordinates coordinates;
     private int weight;
 
 
@@ -16,7 +15,7 @@ public abstract class Species {
 
     }
 
-    public Species(String name, String gender, ArrayList<String> coordinates, int weight){
+    public Species(String name, String gender, Coordinates coordinates, int weight){
         this.name = name;
         this.gender = gender;
         this.coordinates = coordinates;
@@ -36,6 +35,10 @@ public abstract class Species {
         return weight;
     }
 
+    public String getCoordinates() {
+        return coordinates.toString();
+    }
+
     //Setters
     public void setName(String name) {
         this.name = name;
@@ -51,11 +54,10 @@ public abstract class Species {
 
     @Override
     public String toString() {
-        return "Species{" +
-                "name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", coordinates=" + coordinates +
-                ", weight=" + weight +
-                '}';
+        return String.format("""
+                Species: %s
+                Gender: %s
+                Weight: %d
+                """,getName(),getGender(),getWeight());
     }
 }

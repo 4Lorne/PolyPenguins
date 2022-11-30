@@ -7,7 +7,7 @@ public class SeaLion extends Species{
     private int numSpots;
 
     //Constructor
-    public SeaLion(String name, String gender, ArrayList<String> coordinates, int weight, int numSpots){
+    public SeaLion(String name, String gender, Coordinates coordinates, int weight, int numSpots){
         super(name,gender,coordinates,weight);
         this.numSpots = numSpots;
     }

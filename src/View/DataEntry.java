@@ -226,6 +226,15 @@ public class DataEntry extends JPanel {
         return Objects.requireNonNull(animalCGender.getSelectedItem()).toString();
     }
 
+    public void clearData(){
+        animalCSpecies.setSelectedIndex(0);
+        animalCGender.setSelectedIndex(0);
+        weightEntry.setText("");
+        spotsEntry.setText("");
+        bloodPressureEntry.setText("");
+        coordList.setText("");
+    }
+
     public JTextField getAddCoords() {
         return addCoords;
     }
@@ -259,6 +268,6 @@ public class DataEntry extends JPanel {
     }
 
     public String getCoords(){
-        return addCoords.getText().trim();
+        return coordList.getText();
     }
 }
