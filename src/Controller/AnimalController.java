@@ -1,8 +1,6 @@
 package Controller;
 
-import Model.Coordinates;
-import Model.Penguin;
-import Model.Species;
+import Model.*;
 import View.DataEntry;
 import View.Reports;
 
@@ -37,16 +35,19 @@ public class AnimalController {
 
         //Prints the list of recent animals
         this.reports.setShowNewEntries(e -> {
-            //TODO: Make coordinates stop printing all the coordinates
             for (int i = 0; i < species.size();i++){
-                reports.printAnimals(species.get(i).toString());
+                this.reports.printAnimals(species.get(i).toString());
             }
-
+            this.reports.titleChoice();
         });
 
-        //Input validation when you press add entry
+        this.reports.setShowGPSLogs(e -> {
+            this.reports.writeGPS(coordinates.get(0).outputFile());
+        });
+
+        //On button press
         this.dataEntry.setAddEntry(e -> {
-            //Validation
+            //Input validation when you press add entry
             if (this.dataEntry.checkInputAnimal(this.dataEntry.getWeightEntry())){
                 JOptionPane.showMessageDialog(null,"[Weight]: Invalid input: \nEnter a whole number greater than 0.");
                 return;
@@ -70,19 +71,30 @@ public class AnimalController {
                 JOptionPane.showMessageDialog(null,"At least one GPS location must be entered");
                 return;
             }
-            //TODO: Check for at least one GPS location
+
             //Gathering values to create a species object
             String name = dataEntry.addAnimal();
             String gender = dataEntry.getGender();
             int weight = dataEntry.getWeight();
-
             this.coordinates.add(new Coordinates(dataEntry.getCoords()));
 
+            //Checks for the animal, uses specific getters based on choice.
             if (this.dataEntry.animalChosen().matches("Penguin")){
                 int bloodPressure = dataEntry.getBP();
                 Penguin penguin = new Penguin(name,gender,weight,coordinates.get(count),bloodPressure);
-                species.add(penguin);
+                penguin.createFile();
+                this.species.add(penguin);
                 System.out.println(species);
+            } else if (this.dataEntry.animalChosen().matches("Walrus")){
+                String dentalHealth = this.dataEntry.getDental();
+                Walrus walrus = new Walrus(name,gender, coordinates.get(count), weight,dentalHealth);
+                walrus.createFile();
+                this.species.add(walrus);
+            } else if (this.dataEntry.animalChosen().matches("Sea Lion")){
+                int numSpots = this.dataEntry.getNumSpots();
+                SeaLion seaLion = new SeaLion(name,gender,coordinates.get(count),weight,numSpots);
+                seaLion.createFile();
+                this.species.add(seaLion);
             }
 
             //Resets all fields after each object is created

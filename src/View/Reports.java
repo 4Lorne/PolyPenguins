@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Reports extends JPanel {
     JLabel reportTitle = new JLabel("Reports");
+    JLabel reportGPSLogs = new JLabel("Report: All Logged GPS Positions To Date");
 
     JButton showNewEntries = new JButton("Show New Entries");
     JButton showGPSLogs = new JButton("Show GPS Logs");
@@ -19,7 +20,7 @@ public class Reports extends JPanel {
     public Reports(){
         setLayout(null);
         //Title
-        reportTitle.setBounds(10,20,100,15);
+        reportTitle.setBounds(10,20,400,15);
         add(reportTitle);
         //Text Area
         scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -50,6 +51,14 @@ public class Reports extends JPanel {
     }
 
     public void printAnimals(String input){
+        coordList.append(input);
+    }
+
+    public void titleChoice(){
+        reportTitle.setText("Report: New Animal Entries");
+    }
+
+    public void writeGPS(String input){
         coordList.append(input);
     }
 }

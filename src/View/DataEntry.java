@@ -270,4 +270,12 @@ public class DataEntry extends JPanel {
     public String getCoords(){
         return coordList.getText();
     }
+
+    public String getDental(){
+        return Objects.requireNonNull(dentalCCombo.getSelectedItem()).toString();
+    }
+
+    public int getNumSpots(){
+        return Integer.parseInt(spotsEntry.getText());
+    }
 }
