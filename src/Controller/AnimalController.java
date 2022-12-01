@@ -5,10 +5,7 @@ import View.DataEntry;
 import View.Reports;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 
 public class AnimalController {
@@ -20,20 +17,11 @@ public class AnimalController {
 
     //Used to get index of new coordinates, increments whenever a new object is made.
     private int count = 0;
+    FileReader file = new FileReader("Output.txt");
+    BufferedReader reader = new BufferedReader(file);
 
     //TODO: Fix FILE IO
-    BufferedReader reader;
-    {
-        try {
-            FileReader file = new FileReader("Output.txt");
-            reader = new BufferedReader(file);
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public AnimalController(DataEntry dataEntry, Reports reports){
+    public AnimalController(DataEntry dataEntry, Reports reports) throws FileNotFoundException {
         this.dataEntry = dataEntry;
         this.reports = reports;
 
@@ -54,12 +42,15 @@ public class AnimalController {
             for (int i = 0; i < species.size();i++){
                 this.reports.printAnimals(species.get(i).toString());
             }
-            this.reports.titleChoice();
+            this.reports.titleChoice("Report: New Animal Entries");
         });
 
         this.reports.setShowGPSLogs(e -> {
-            for (int i = 0; i < species.size();i++){
+            this.reports.titleChoice("Report: All Logged GPS Positions To Date");
+            try {
                 this.reports.writeGPS(reader);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
         });
 

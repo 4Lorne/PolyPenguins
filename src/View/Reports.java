@@ -56,18 +56,20 @@ public class Reports extends JPanel {
     }
 
     public void printAnimals(String input){
+        cleanOutput();
         coordList.append(input);
     }
 
-    public void titleChoice(){
-        reportTitle.setText("Report: New Animal Entries");
+    public void titleChoice(String input){
+        reportTitle.setText(input);
     }
 
-    public void writeGPS(BufferedReader reader){
-        try {
-            coordList.read(reader, "Output.txt");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void writeGPS(BufferedReader reader) throws IOException {
+        cleanOutput();
+        coordList.read(reader,"Output.txt");
+    }
+
+    public void cleanOutput(){
+        coordList.setText("");
     }
 }
