@@ -1,8 +1,10 @@
 package Model;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public abstract class Species {
+public abstract class Species implements ILoggable{
     //Variables
     private String name;
     private String gender;
@@ -20,6 +22,16 @@ public abstract class Species {
         this.gender = gender;
         this.coordinates = coordinates;
         this.weight = weight;
+    }
+
+    public void createFile() {
+        try {
+            FileWriter writer = new FileWriter("Output.txt",true);
+            writer.append(getCoordinates()).append("\n");
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //Getters

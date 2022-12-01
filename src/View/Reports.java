@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Reports extends JPanel {
     JLabel reportTitle = new JLabel("Reports");
@@ -16,6 +19,8 @@ public class Reports extends JPanel {
     JTextArea coordList = new JTextArea();
     JScrollPane scrollPane = new JScrollPane(coordList);
     Border border = BorderFactory.createLineBorder(Color.BLACK);
+
+
 
     public Reports(){
         setLayout(null);
@@ -58,7 +63,11 @@ public class Reports extends JPanel {
         reportTitle.setText("Report: New Animal Entries");
     }
 
-    public void writeGPS(String input){
-        coordList.append(input);
+    public void writeGPS(BufferedReader reader){
+        try {
+            coordList.read(reader, "Output.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
