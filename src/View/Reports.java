@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class Reports extends JPanel {
     JLabel reportTitle = new JLabel("Reports");
-    JLabel reportGPSLogs = new JLabel("Report: All Logged GPS Positions To Date");
 
     JButton showNewEntries = new JButton("Show New Entries");
     JButton showGPSLogs = new JButton("Show GPS Logs");
@@ -64,9 +63,10 @@ public class Reports extends JPanel {
         reportTitle.setText(input);
     }
 
-    public void writeGPS(BufferedReader reader) throws IOException {
-        cleanOutput();
+    public void writeGPS(String filepath) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(filepath));
         coordList.read(reader,"Output.txt");
+        reader.close();
     }
 
     public void cleanOutput(){

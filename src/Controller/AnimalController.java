@@ -17,8 +17,8 @@ public class AnimalController {
 
     //Used to get index of new coordinates, increments whenever a new object is made.
     private int count = 0;
-    FileReader file = new FileReader("Output.txt");
-    BufferedReader reader = new BufferedReader(file);
+
+    private String filepath = "Output.txt";
 
     //TODO: Fix FILE IO
     public AnimalController(DataEntry dataEntry, Reports reports) throws FileNotFoundException {
@@ -45,10 +45,12 @@ public class AnimalController {
             this.reports.titleChoice("Report: New Animal Entries");
         });
 
+        //Prints coordinates to textarea
+        //TODO: Remove blank lines between coordinates
         this.reports.setShowGPSLogs(e -> {
             this.reports.titleChoice("Report: All Logged GPS Positions To Date");
             try {
-                this.reports.writeGPS(reader);
+                this.reports.writeGPS(this.filepath);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
