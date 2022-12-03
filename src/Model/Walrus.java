@@ -1,10 +1,8 @@
 package Model;
 
-import java.io.*;
-
 public class Walrus extends Species implements ILoggable{
     //Variables
-    private String dentalHealth;
+    private final String dentalHealth;
 
     //Constructor
     public Walrus(String name, String gender, Coordinates coordinates, int weight, String dentalHealth){

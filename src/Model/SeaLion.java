@@ -1,10 +1,8 @@
 package Model;
 
-import java.io.*;
-
 public class SeaLion extends Species implements ILoggable{
     //Variables
-    private int numSpots;
+    private final int numSpots;
 
     //Constructor
     public SeaLion(String name, String gender, Coordinates coordinates, int weight, int numSpots){

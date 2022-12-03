@@ -16,6 +16,7 @@ public class MainFrame extends JFrame{
         init();
     }
 
+    //Initializer
     public void init() throws FileNotFoundException {
         setTitle("Antarctic Animal Tracking");
         cardLayout = new CardLayout();
@@ -33,11 +34,11 @@ public class MainFrame extends JFrame{
         add(dataEntry,"Data Entry");
         add(reports,"Reports");
 
-        dataEntry.setViewReports(e -> {
+        dataEntry.setBtnViewReports(e -> {
             cardLayout.show(MainFrame.this.getContentPane(),"Reports");
         });
 
-        reports.setBack(e -> {
+        reports.setBtnBack(e -> {
             cardLayout.show(MainFrame.this.getContentPane(),"Data Entry");
         });
         setSize(800,300);
@@ -46,10 +47,11 @@ public class MainFrame extends JFrame{
         setVisible(true);
     }
 
-    //Creates file on startup
+    //Creates file on startup if one does not already exist
     public void createFile() {
         try {
             FileWriter writer = new FileWriter("Output.txt",true);
+            FileWriter writer2 = new FileWriter("OutputWhitespaceRemoved.txt",true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

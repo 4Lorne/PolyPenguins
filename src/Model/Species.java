@@ -1,8 +1,6 @@
 package Model;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public abstract class Species implements ILoggable{
     //Variables
@@ -47,21 +45,9 @@ public abstract class Species implements ILoggable{
         return weight;
     }
 
+    //Returns the coordinate string
     public String getCoordinates() {
-        return coordinates.toString();
-    }
-
-    //Setters
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
+        return coordinates.getCoordinates();
     }
 
     @Override

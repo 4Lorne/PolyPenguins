@@ -1,15 +1,9 @@
 package Model;
 
-import java.io.*;
-
 public class Penguin extends Species implements ILoggable{
     //Variables
-    private double bloodPressure;
+    private final double bloodPressure;
 
-    //Constructor
-    public Penguin(){
-
-    }
     public Penguin(String name, String gender, int weight, Coordinates coordinates, double bloodPressure){
         super(name,gender,coordinates,weight);
         this.bloodPressure = bloodPressure;
@@ -18,11 +12,6 @@ public class Penguin extends Species implements ILoggable{
     //Getter
     public double getBloodPressure() {
         return bloodPressure;
-    }
-
-    //Setter
-    public void setBloodPressure(double bloodPressure) {
-        this.bloodPressure = bloodPressure;
     }
 
 

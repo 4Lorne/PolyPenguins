@@ -16,16 +16,16 @@ public class DataEntry extends JPanel {
     JLabel bloodPressure = new JLabel("Blood Pressure");
     JLabel coordinates = new JLabel("GPS Coordinates: (-)##.####### (-)(## or ###).#######");
 
-    JButton addEntry = new JButton("Add Entry");
-    JButton addGPS = new JButton("Add GPS");
-    JButton viewReports = new JButton("View Reports");
+    JButton btnAddEntry = new JButton("Add Entry");
+    JButton btnAddGPS = new JButton("Add GPS");
+    JButton btnViewReports = new JButton("View Reports");
 
-    String[] animalArray = {"Penguin", "Sea Lion", "Walrus"};
-    String[] animalGender = {"Male", "Female"};
-    String[] dentalHealth = {"Good","Average","Poor"};
-    JComboBox<String> animalCSpecies = new JComboBox<String>(animalArray);
-    JComboBox<String> animalCGender = new JComboBox<String>(animalGender);
-    JComboBox<String> dentalCCombo = new JComboBox<String>(dentalHealth);
+    String[] animalNameArray = {"Penguin", "Sea Lion", "Walrus"};
+    String[] animalSexArray = {"Male", "Female"};
+    String[] dentalHealthArray = {"Good","Average","Poor"};
+    JComboBox<String> animalCSpecies = new JComboBox<>(animalNameArray);
+    JComboBox<String> animalCSex = new JComboBox<>(animalSexArray);
+    JComboBox<String> dentalCCombo = new JComboBox<>(dentalHealthArray);
 
     JTextField addCoords = new JTextField(20);
     JTextField weightEntry = new JTextField(6);
@@ -33,9 +33,7 @@ public class DataEntry extends JPanel {
     JTextField spotsEntry = new JTextField(6);
 
     JTextArea coordList = new JTextArea();
-
     JScrollPane scrollPane = new JScrollPane(coordList);
-
 
     Border border = BorderFactory.createLineBorder(Color.BLACK);
 
@@ -57,8 +55,8 @@ public class DataEntry extends JPanel {
         gender.setBounds(10,80,100,10);
         add(gender);
         //Combo Box
-        animalCGender.setBounds(120,75,100,25);
-        add(animalCGender);
+        animalCSex.setBounds(120,75,100,25);
+        add(animalCSex);
 
         //Label
         weight.setBounds(10,110,100,15);
@@ -91,8 +89,8 @@ public class DataEntry extends JPanel {
         add(dentalCCombo);
 
         //Button
-        addEntry.setBounds(60,170,100,25);
-        add(addEntry);
+        btnAddEntry.setBounds(60,170,100,25);
+        add(btnAddEntry);
 
 
         //Text field
@@ -100,8 +98,8 @@ public class DataEntry extends JPanel {
         add(addCoords);
 
         //Button
-        addGPS.setBounds(660,40,100,25);
-        add(addGPS);
+        btnAddGPS.setBounds(660,40,100,25);
+        add(btnAddGPS);
 
         //Text Area
         scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -111,29 +109,23 @@ public class DataEntry extends JPanel {
         add(scrollPane);
 
         //Button
-        viewReports.setBounds(610,215,150,25);
-        add(viewReports);
+        btnViewReports.setBounds(610,215,150,25);
+        add(btnViewReports);
     }
     //Listener for buttons
-    public void setAddEntry(ActionListener actionListener){
-        addEntry.addActionListener(actionListener);
+    public void setBtnAddEntry(ActionListener actionListener){
+        btnAddEntry.addActionListener(actionListener);
     }
-    public void setAddGPS(ActionListener actionListener){
-        addGPS.addActionListener(actionListener);
+    public void setBtnAddGPS(ActionListener actionListener){
+        btnAddGPS.addActionListener(actionListener);
     }
-    public void setViewReports(ActionListener actionListener){
-        viewReports.addActionListener(actionListener);
+    public void setBtnViewReports(ActionListener actionListener){
+        btnViewReports.addActionListener(actionListener);
     }
 
-    //Listener for combo boxes
+    //Checks for the animal and shows relevant choices depending on what is chosen.
     public void getSelectedAnimal(ActionListener actionListener){
         animalCSpecies.addActionListener(actionListener);
-    }
-    public void getSelectedGender(ActionListener actionListener){
-        animalCGender.addActionListener(actionListener);
-    }
-    public void getDentalHealth(ActionListener actionListener){
-        dentalCCombo.addActionListener(actionListener);
     }
 
     //Sets visibility based on choice
@@ -222,21 +214,20 @@ public class DataEntry extends JPanel {
     }
 
     //Getters
-    public String getGender(){
-        return Objects.requireNonNull(animalCGender.getSelectedItem()).toString();
+    public String getSex(){
+        return Objects.requireNonNull(animalCSex.getSelectedItem()).toString();
     }
 
+    //Clears the data so new animal can be added.
     public void clearData(){
         animalCSpecies.setSelectedIndex(0);
-        animalCGender.setSelectedIndex(0);
+        animalCSex.setSelectedIndex(0);
+        dentalCCombo.setSelectedIndex(0);
+        spotsEntry.setText("");
         weightEntry.setText("");
         spotsEntry.setText("");
         bloodPressureEntry.setText("");
         coordList.setText("");
-    }
-
-    public JTextField getAddCoords() {
-        return addCoords;
     }
 
     public JTextField getWeightEntry() {

@@ -1,13 +1,10 @@
 package Model;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 public class Coordinates extends Species implements ILoggable {
-    private String coordinates;
+    //Variables
+    private final String coordinates;
 
+    //Constructor
     public Coordinates(String coordinates){
         this.coordinates = coordinates;
     }
@@ -16,6 +13,7 @@ public class Coordinates extends Species implements ILoggable {
         return coordinates;
     }
 
+    //toString method
     @Override
     public String toString() {
         return getCoordinates();

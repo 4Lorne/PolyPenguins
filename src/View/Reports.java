@@ -11,12 +11,12 @@ import java.io.IOException;
 public class Reports extends JPanel {
     JLabel reportTitle = new JLabel("Reports");
 
-    JButton showNewEntries = new JButton("Show New Entries");
-    JButton showGPSLogs = new JButton("Show GPS Logs");
-    JButton back = new JButton("Back");
+    JButton btnShowNewEntries = new JButton("Show New Entries");
+    JButton btnShowGPSLogs = new JButton("Show GPS Logs");
+    JButton btnBack = new JButton("Back");
 
-    JTextArea coordList = new JTextArea();
-    JScrollPane scrollPane = new JScrollPane(coordList);
+    JTextArea outputArea = new JTextArea();
+    JScrollPane scrollPane = new JScrollPane(outputArea);
     Border border = BorderFactory.createLineBorder(Color.BLACK);
 
 
@@ -29,47 +29,49 @@ public class Reports extends JPanel {
         //Text Area
         scrollPane.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         scrollPane.setBounds(10,40,770,170);
-        coordList.setEditable(false);
+        outputArea.setEditable(false);
         scrollPane.setAutoscrolls(false);
         add(scrollPane);
         //Button
-        showNewEntries.setBounds(100,220,175,25);
-        add(showNewEntries);
+        btnShowNewEntries.setBounds(100,220,175,25);
+        add(btnShowNewEntries);
         //Button
-        showGPSLogs.setBounds(300,220,175,25);
-        add(showGPSLogs);
+        btnShowGPSLogs.setBounds(300,220,175,25);
+        add(btnShowGPSLogs);
         //Button
-        back.setBounds(500,220,175,25);
-        add(back);
+        btnBack.setBounds(500,220,175,25);
+        add(btnBack);
     }
 
-    public void setBack(ActionListener actionListener){
-        back.addActionListener(actionListener);
+    //Button listeners
+    public void setBtnBack(ActionListener actionListener){
+        btnBack.addActionListener(actionListener);
     }
-    public void setShowNewEntries(ActionListener actionListener){
-        showNewEntries.addActionListener(actionListener);
+    public void setBtnShowNewEntries(ActionListener actionListener){
+        btnShowNewEntries.addActionListener(actionListener);
+    }
+    public void setBtnShowGPSLogs(ActionListener actionListener){
+        btnShowGPSLogs.addActionListener(actionListener);
     }
 
-    public void setShowGPSLogs(ActionListener actionListener){
-        showGPSLogs.addActionListener(actionListener);
-    }
-
+    //Appends species array to the output area
     public void printAnimals(String input){
-        cleanOutput();
-        coordList.append(input);
+        outputArea.append(input);
     }
 
+    //Changes the title based on the button pressed
     public void titleChoice(String input){
         reportTitle.setText(input);
     }
 
+    //Need to create a new file reader object every time you use it
     public void writeGPS(String filepath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
-        coordList.read(reader,"Output.txt");
+        outputArea.read(reader,"Output.txt");
         reader.close();
     }
 
-    public void cleanOutput(){
-        coordList.setText("");
+    public void clearOutput(){
+        outputArea.setText("");
     }
 }
