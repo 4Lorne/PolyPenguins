@@ -120,6 +120,8 @@ public class AnimalController {
         });
     }
 
+
+    //Credit: https://stackoverflow.com/questions/34999999/java-how-to-remove-blank-lines-from-a-text-file
     public void removeWhiteSpace(String filepath){
         File originalFile = new File(filepath);
         File newFile = new File("OutputWhitespaceRemoved.txt");
